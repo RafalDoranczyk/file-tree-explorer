@@ -32,6 +32,14 @@ export function TreeNode({ nodeId, level = 0 }: TreeNodeProps) {
 	const isMatch =
 		searchQuery && node.name.toLowerCase().includes(searchQuery.toLowerCase());
 
+	const handleToggle = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		if (isFolder) {
+			toggleExpanded(nodeId);
+		}
+	};
+
 	return (
 		<div className="select-none">
 			<div
@@ -43,7 +51,7 @@ export function TreeNode({ nodeId, level = 0 }: TreeNodeProps) {
 				<button
 					type="button"
 					className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-md hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-0 disabled:cursor-default"
-					onClick={() => isFolder && toggleExpanded(nodeId)}
+					onClick={handleToggle}
 					disabled={!isFolder}
 					aria-label={isExpanded ? "Collapse folder" : "Expand folder"}
 				>
@@ -78,7 +86,6 @@ export function TreeNode({ nodeId, level = 0 }: TreeNodeProps) {
 					>
 						<HighlightText text={node.name} query={searchQuery} />
 					</span>
-					{/* Showing Full Path */}
 					{isMatch && searchQuery && (
 						<span className="text-[10px] text-gray-400 font-mono truncate">
 							<HighlightText text={node.id} query={searchQuery} />

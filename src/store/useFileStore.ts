@@ -7,7 +7,7 @@ type FileStore = {
 	files: FileSystemState;
 	isLoaded: boolean;
 	searchQuery: string;
-	expandedIds: string[]; // Zmiana na tablicę
+	expandedIds: string[];
 	loadFiles: (rawRoot: RawNode) => void;
 	clearFiles: () => void;
 	setSearchQuery: (q: string) => void;

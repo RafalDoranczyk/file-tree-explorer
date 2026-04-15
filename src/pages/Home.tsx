@@ -55,7 +55,7 @@ export default function Home() {
 								className="flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-gray-600 hover:text-indigo-600 hover:bg-white hover:shadow-sm rounded-lg transition-all cursor-pointer"
 							>
 								<Wand2 size={14} />
-								<span>Try Example</span>
+								<span>Generate Random</span>
 							</button>
 						</div>
 					</div>

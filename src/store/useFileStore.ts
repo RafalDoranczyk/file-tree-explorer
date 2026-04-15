@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import type { FileSystemState, RawNode } from "../types";
 import { normalizeTree } from "../utils/normalizeTree";
 
-interface FileStore {
+type FileStore = {
 	files: FileSystemState;
 	isLoaded: boolean;
 	searchQuery: string;
@@ -12,7 +12,7 @@ interface FileStore {
 	clearFiles: () => void;
 	setSearchQuery: (q: string) => void;
 	toggleExpanded: (id: string) => void;
-}
+};
 
 export const useFileStore = create<FileStore>()(
 	persist(

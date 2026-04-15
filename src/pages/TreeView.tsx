@@ -1,18 +1,26 @@
-import { ArrowLeft, FolderTree, Search, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { FolderTree, Search, Trash2, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { TreeEmptyState } from "../components/TreeEmptyState";
 import { TreeNode } from "../components/TreeNode";
 import { PATHS } from "../core/paths";
 import { useFileStore } from "../store/useFileStore";
 
 export default function TreeView() {
-	const { files, isLoaded, searchQuery, setSearchQuery } = useFileStore();
+	const { files, isLoaded, searchQuery, setSearchQuery, clearFiles } =
+		useFileStore();
+
+	const navigate = useNavigate();
 
 	if (!isLoaded || Object.keys(files).length === 0) {
 		return <TreeEmptyState />;
 	}
 
 	const rootNode = Object.values(files).find((node) => node.parentId === null);
+
+	const handleReset = () => {
+		clearFiles();
+		navigate(PATHS.MAIN);
+	};
 
 	return (
 		<div className="max-w-4xl mx-auto mt-8 px-4 pb-20">
@@ -25,12 +33,17 @@ export default function TreeView() {
 						Project Explorer
 					</h1>
 				</div>
-				<Link
-					to={PATHS.MAIN}
-					className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors"
+				<button
+					type="button"
+					onClick={handleReset}
+					className="group flex items-center gap-2 px-5 py-3 bg-red-50 text-red-600 hover:bg-red-100 rounded-2xl font-bold transition-all active:scale-95 text-sm cursor-pointer"
 				>
-					<ArrowLeft size={16} /> New Structure
-				</Link>
+					<Trash2
+						size={16}
+						className="group-hover:-rotate-12 transition-transform"
+					/>
+					New Structure
+				</button>
 			</div>
 
 			<div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
